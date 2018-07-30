@@ -3,7 +3,7 @@ import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
 
 dataPath = 'E:\wgXue\TF-MNIST'
-
+logdir='log_test/'
 
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.1)
@@ -75,7 +75,8 @@ def m1():
     correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     sess.run(tf.global_variables_initializer())
-    for i in range(20000):
+    tf.summary.FileWriter(logdir, sess.graph)
+    for i in range(2000):
         batch = mnist.train.next_batch(50)
         if i % 10 == 0:
             train_accuracy = accuracy.eval(feed_dict={
